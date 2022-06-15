@@ -76,6 +76,62 @@ A continuación, se muestra el diagrama relacional de las tablas que componen el
 <br>
 <br>
 
+## Tokens Generados<a name="id8"></a>
+A continuación, se muestra la Tabla de tokens:
+
+
+| Token             | Descripción                         | Patrón                                                  |
+| ----------------- | ----------------------------------- | ------------------------------------------------------- |
+| comment_line      | Comentario de una Linea             | //.\*                                                   |
+| comment_multiLine | Comentario multilinea Linea         | (\/\*([[^\*]\n])\*\*\/ )                                |
+| tipo_int          | Tipo de dato int                    | int                                                     |
+| tipo_double       | Tipo de dato double                 | double                                                  |
+| tipo_string       | Tipo de dato string                 | string                                                  |
+| tipo_char         | Tipo de dato char                   | char                                                    |
+| tipo_boolean      | Tipo de dato boolean                | boolena                                                 |
+| tipo              | Tipo de dato                        | tipo_int/tipo_double/tipo_string/tipo_char/tipo_boolean |
+| identificador     | Simbolo nombre entidad              | ^([a-zA-Z_])([\w]*)                                     |
+| operator_Ar       | Operador aritmetico suma            | +                                                       |
+| operator_Ar       | Operador aritmetico resta           | -                                                       |
+| operator_Ar       | Operador aritmetico multiplicacion  | \*                                                      |
+| operator_Ar       | Operador aritmetico division        | /                                                       |
+| operator_Ar       | Operador aritmetico resto           | %                                                       |
+| operator_As       | Operador de asignación              | =                                                       |
+| operator_Rs       | Operador de relacion Igualacion     | ==                                                      |
+| operator_Rs       | Operador de relacion Diferenciacion | !=                                                      |
+| operator_Rs       | Operador de relacion Mayor          | >                                                       |
+| operator_Rs       | Operador de relacion Mayor igual    | >=                                                      |
+| operator_Rs       | Operador de relacion Menor          | <                                                       |
+| operator_Rs       | Operador de relacion Menor igual    | <=                                                      |
+| operator_Ls       | Operador logico and                 | &&                                                      |
+| operator_Ls       | Operador logico or                  | ||                                                      |
+| operator_Ls       | Operador logico not                 | !                                                       |
+| dato_int          | Tipo de dato int                    | [+-]?([0-9]+)                                           |
+| dato_double       | Tipo de dato double                 | [+-]?([0-9]*[.])?[0-9]+                                 |
+| dato_string       | Tipo de dato string                 | "([[^"](\")])*"                                         |
+| dato_char         | Tipo de dato char                   | '([[^'](\')])'                                          |
+| dato_boolean      | Tipo de dato boolean                | ^(false|true)                                           |
+| dato              | Dato de cualquier tipo              | dato_int/dato_double/dato_string/dato_char/dato_boolean |
+| conditional_if    | Estructura condicional if           | if                                                      |
+| conditional_else  | Estructura condicional else         | else                                                    |
+| iterative_do      | Estructura iterativa do             | do                                                      |
+| iterative_while   | Estructura iterativa while          | while                                                   |
+| parA              | Paréntesis abierto                  | (                                                       |
+| parB              | Paréntesis cerrado                  | )                                                       |
+| punto_coma        | Punto y coma                        | ;                                                       |
+| llaveA            | Llave abierta                       | {                                                       |
+| llaveB            | Llave cerrada                       | }                                                       |
+| metodo_void       | Metodo void                         | void                                                    |
+| coma              | Operador coma                       |  ,                                                      |
+| metodo_run        | Retorna un valor                    |  return                                                 |
+| corA              | Corchete abierto                    | [                                                       |
+| corB              | Corchete cerrado                    | ]                                                       |
+| punto             | Operador punto                      | .                                                       |
+
+
+<br>
+<br>
+
 ## Automás Generados<a name="id6"></a>
 A continuación, se muestran los automás  elaborados en el proyecto por medio del metodo del arbol:
 
