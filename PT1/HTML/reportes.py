@@ -56,7 +56,7 @@ class HTML():
         """
 
         # ? Contenido BODY HTML
-        
+
             tokens = lista['tokens']
             for elemento in tokens:
                 id = elemento.id
@@ -87,6 +87,53 @@ class HTML():
             <br>
             <br>"""
 
+
+        if lista['estados']:
+            body = body + f"""
+            <h2 class="heading-section">Tablas de Estados</h2>
+            """
+            estados = lista['estados']
+            for elemento in estados:
+                body = body + f"""
+            <h2 class="heading-section">Lexema: {elemento.nombre}. Token: {elemento.lexema}</h2>
+            <div class = "row" >
+                <div class = "col-md-12" > 
+                    <div class = "table-wrap" >
+                        <table class="table table-bordered table-dark table-hover">
+                            <thead>
+                            <tr>
+                                <th> Estado </th>
+                                <th> Caracter </th>
+                                <th> Lexema Reconocido </th>
+                                <th> Siguiente Estado </th>
+                            </tr>
+                            </thead>
+            """
+                body = body + f"""
+                            <tbody>
+            """
+            # ? Contenido BODY HTML
+                for datos in elemento.estados:
+                    body = body + f"""
+                                <tr >"""
+                    for dato in datos:
+                        body = body + f"""  
+                                    <td>{dato}</td>
+                                    """
+                    body = body + f"""
+                                </tr >"""
+
+                body = body + f"""
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>"""
+            
+                body = body + f"""
+            <br>
+            <br>"""
+
         if lista['errores']:
             body = body + f"""
             <h2 class="heading-section">Tablas de Errores</h2>
@@ -107,7 +154,7 @@ class HTML():
         """
 
         # ? Contenido BODY HTML
-        
+
             errores = lista['errores']
             for elemento in errores:
                 id = elemento.caracter
@@ -126,49 +173,10 @@ class HTML():
                     </div>
                 </div>
             </div>"""
-        
+
         body = body + f"""
             <br>
             <br>"""
-
-        if lista['estados']:
-            body = body + f"""
-            <h2 class="heading-section">Tablas de Estados</h2>
-            <div class = "row" >
-                <div class = "col-md-12" > 
-                    <div class = "table-wrap" >
-                        <table class="table table-bordered table-dark table-hover">
-                            <thead>
-                            <tr>
-                                <th> Estado </th>
-                                <th> Caracter </th>
-                                <th> Lexema Reconocido </th>
-                                <th> Siguiente Estado </th>
-                            </tr>
-                            </thead>
-        """
-            body = body + f"""
-                            <tbody>
-        """
-        # ? Contenido BODY HTML
-
-            estados = lista['estados']
-            for elemento in estados:
-                body = body + f"""  
-                                <tr >"""
-                for dato in elemento:
-                    body = body + f"""  
-                                    <td>{dato}</td>
-                                """
-                body = body + f"""  
-                                <tr >"""
-            
-            body = body + f"""
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>"""
 
         body = body + f"""
         </div>

@@ -10,7 +10,6 @@ class Menu():
         self.diccionario_elementos = ''
         self.cargar = 1
         self.nombre_html = 2
-        self.generar_pdf = 3
         self.salir = 0
 
     def mostrar_menu(self) -> None:
@@ -22,10 +21,10 @@ class Menu():
 Selecciona una opción:\n
     \t{self.cargar }) - Cargar Archivo 
     \t{self.nombre_html}) - Nombre del Archivo
-    \t{self.generar_pdf}) - Generar PDF
     \t{self.salir}) - Salir\n''')
 
     def menu(self) -> None:
+        name_html = ''
         while True:
 
             self.mostrar_menu()
@@ -57,10 +56,7 @@ Selecciona una opción:\n
                         html.createHTML(name_html, self.diccionario_elementos)
                         
                     else:
-                        print(Fore.LIGHTYELLOW_EX, 'Necesitas Cargar Archivo antes')
-
-                elif opcionMenu == self.generar_pdf:
-                    opcPiso = ''
+                        print(Fore.LIGHTYELLOW_EX, 'Necesitas Cargar Archivo antes')                    
 
                 elif opcionMenu == self.salir:
                     print("\nEsto no es un adios sino un asta pronto!!!!!!\n")

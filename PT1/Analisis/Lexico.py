@@ -34,7 +34,7 @@
 | dato_int          | Tipo de dato int                    | [+|-]?([0-9]+)                                          |
 | dato_double       | Tipo de dato double                 | [+-]?([0-9]*[.])?[0-9]+                                 |
 | dato_string       | Tipo de dato string                 | "([^"]\|(\"))*"                                         |
-| dato_char         | Tipo de dato char                   | "([^"]\|(\"))"                                          |
+| dato_char         | Tipo de dato char                   | '([^']\|(\'))'                                          |
 | dato_boolean      | Tipo de dato boolean                | ^(false|true)                                           |
 | dato              | Dato de cualquier tipo              | dato_int/dato_double/dato_string/dato_char/dato_boolean |
 | conditional_if    | Estructura condicional if           | if                                                      |
@@ -68,6 +68,7 @@ class Lexico():
     def __init__(self) -> None:
         self.list_tokens = list()
         self.list_errors = list()
+        self.list_estados = list()
         self.digito = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
         self.letra = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
                       "n", "ñ", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z","_"]
@@ -81,47 +82,47 @@ class Lexico():
         self.char = ["'"]
         self.IGNORAR = " \n\t"
         self.tokens = {
-            # "tk_dato_string": self.AFDString,
-            # "tk_dato_char": self.AFDChar,
-            # "tk_operadorRs_igualacion": "==",
-            # "tk_operadorRs_diferenciacion": "!=",
-            # "tk_operadorRs_MayorIgual": ">=",
-            # "tk_operadorRs_MenorIgual": "<=",
-            # "tk_operadorLs_and": "&&",
-            # "tk_operadorLs_or": "||",
-            # "tk_operadorLs_not": "!",
-            # "tk_operadorAs_asignacion": "=",
-            # "tk_operatorAr_suma": "+",
-            # "tk_operatorAr_resta": "-",
-            # "tk_comment_multiLine": self.ADFCommentMultyLine,
-            # "tk_operadorAr_multiplicacion": "*",
-            # "tk_comment_line": self.ADFCommentLine,
-            # "tk_operadorAr_division": "/",
-            # "tk_operadorAr_resto": "%",
-            # "tk_operadorRs_Menor": ">",
-            # "tk_operadorRs_Mayor": "<",
-            # "tk_parA": "(",
-            # "tk_parC": ")",
-            # "tk_llaveA": "{",
-            # "tk_llaveC": "}",
-            # "tk_puntoYcoma": ";",
-            # "tk_coma": ",",
-            # "tk_tipo_int": "int",
-            # "tk_tipo_double": "double",
-            # "tk_tipo_string": "string",
-            # "tk_tipo_char": "char",
-            # "tk_tipo_boolean": "boolean",
-            # "tk_metodo_void": "void",
-            # "tk_metodo_return": "return",
-            # "tk_conditional_if": "if",
-            # "tk_conditional_else": "else",
-            # "tk_iterative_do": "do",
-            # "tk_iterative_while": "while",
-            # "tk_dato_boolean_true": "true",
-            # "tk_dato_boolean_false": "false",
-            # "tk_dato_double": self.AFDNumeroDouble,
+            "tk_dato_string": self.AFDString,
+            "tk_dato_char": self.AFDChar,
+            "tk_operadorRs_igualacion": "==",
+            "tk_operadorRs_diferenciacion": "!=",
+            "tk_operadorRs_MayorIgual": ">=",
+            "tk_operadorRs_MenorIgual": "<=",
+            "tk_operadorLs_and": "&&",
+            "tk_operadorLs_or": "||",
+            "tk_operadorLs_not": "!",
+            "tk_operadorAs_asignacion": "=",
+            "tk_operatorAr_suma": "+",
+            "tk_operatorAr_resta": "-",
+            "tk_comment_multiLine": self.ADFCommentMultyLine,
+            "tk_operadorAr_multiplicacion": "*",
+            "tk_comment_line": self.ADFCommentLine,
+            "tk_operadorAr_division": "/",
+            "tk_operadorAr_resto": "%",
+            "tk_operadorRs_Menor": ">",
+            "tk_operadorRs_Mayor": "<",
+            "tk_parA": "(",
+            "tk_parC": ")",
+            "tk_llaveA": "{",
+            "tk_llaveC": "}",
+            "tk_puntoYcoma": ";",
+            "tk_coma": ",",
+            "tk_tipo_int": "int",
+            "tk_tipo_double": "double",
+            "tk_tipo_string": "string",
+            "tk_tipo_char": "char",
+            "tk_tipo_boolean": "boolean",
+            "tk_metodo_void": "void",
+            "tk_metodo_return": "return",
+            "tk_conditional_if": "if",
+            "tk_conditional_else": "else",
+            "tk_iterative_do": "do",
+            "tk_iterative_while": "while",
+            "tk_dato_boolean_true": "true",
+            "tk_dato_boolean_false": "false",
+            "tk_dato_double": self.AFDNumeroDouble,
             "tk_dato_int": self.AFDNumeroEntero,
-            #"tk_identificador": self.AFDIdentificador,
+            "tk_identificador": self.AFDIdentificador,
         }
 
     def _descriptionsTk(self, patron, _token) -> str:
@@ -134,7 +135,7 @@ class Lexico():
             "||": "Operador logico or",
             "!": "Operador logico not",
             "=": "Operador de asignación",
-            "+": "Operador aritmetico suma	",
+            "+": "Operador aritmetico suma",
             "-": "Operador aritmetico resta",
             "*": "Operador aritmetico multiplicacion",
             "/": "Operador aritmetico division",
@@ -171,7 +172,46 @@ class Lexico():
 
         patrones = {
             "==": "==",
+            "!=": "!=",
+            ">=": ">=",
+            "<=": "<=",
+            "&&": "&&",
+            "||": "||",
+            "!": "!",
+            "=": "=",
+            "+": "+",
+            "-": "-",
+            "*": "*",
+            "/": "/",
+            "%": "%",
+            ">": ">",
+            "<": "<",
+            "(": "(",
+            ")": ")",
+            "{": "}",
+            "}": "{",
+            ";": ";",
+            ",": ",",
+            "tk_tipo_int": "int",
+            "tk_tipo_double": "double",
+            "tk_tipo_string": "string",
+            "tk_tipo_char": "char",
+            "tk_tipo_boolean": "boolean",
+            "tk_metodo_void": "void",
+            "tk_metodo_return": "return",
+            "tk_conditional_if": "if",
+            "tk_conditional_else": "else",
+            "tk_iterative_do": "do",
+            "tk_iterative_while": "while",
             "tk_dato_int": "[+|-]?([0-9]+)",
+            "tk_dato_double": "[+-]?([0-9]*[.])?[0-9]+",
+            "tk_comment_line": "//.\*",
+            "tk_comment_multiLine": "\/\*([^\*]|\n)\*\*\/",
+            "tk_dato_string": "\"([^\"]\|(\"))*\"",
+            "tk_dato_char": "'([^']\|(\'))'",
+            "tk_dato_boolean_true": "true",
+            "tk_dato_boolean_false": "false",
+            "tk_identificador": "^([a-zA-Z_])([\w]*)",
         }
         
         dict_contenido = dict()
@@ -211,11 +251,8 @@ class Lexico():
 
             elif estado == 2:
 
-                if char not in self.vacio:
+                if char not in self.vacio and char != '\n':
                     estado = 2
-                
-                elif char == '\n':
-                    estado = 3
 
                 else:
                     estado = -1
@@ -264,7 +301,10 @@ class Lexico():
 
                 if char in self.asterisco:
                     estado = 3
-
+                
+                elif char not in self.omite:
+                    estado = 2
+                
                 elif char in self.diagonal:
                     estado = 4
 
@@ -508,6 +548,7 @@ class Lexico():
                                 lexema, descripcion['description'], fila, columna, descripcion['patron'])
                             _token = Token(token, _lexema)
                             self.list_tokens.append(_token)
+                            self.list_estados.append(_dictEstados)
                             print(f"RECONOCIDO: '{lexema}' | {token} - AFD")
                             indice = indice_adelante - 1
                         else:
@@ -518,6 +559,7 @@ class Lexico():
                             _token = Token(token, _lexema)
                             _estadosTabla = Estados()
                             _dictEstados = _estadosTabla.arbol(token, lexema)
+                            self.list_estados.append(_dictEstados)
                             self.list_tokens.append(_token)
                             print(f"RECONOCIDO: '{lexema}' | {token} - AFD")
                             indice = indice_adelante - 1
@@ -534,5 +576,5 @@ class Lexico():
                 indice += 1
 
         diccionario = {'tokens': self.list_tokens,
-                       'errores': self.list_errors, 'estados': _dictEstados}
+                       'errores': self.list_errors, 'estados': self.list_estados}
         return diccionario
