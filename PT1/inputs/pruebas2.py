@@ -8,11 +8,3 @@ indice = 5
 # elif c == 4 and indice > len(lista):
 #     print('no esta')
 
-
-jola = 'jolla'
-ados = 'adios'
-
-lusta = list()
-
-lusta.append([jola,ados])
-print(lusta)

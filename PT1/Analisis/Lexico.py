@@ -321,7 +321,7 @@ class Lexico():
 
     def AFDChar(self, lexema):
         estado = 0
-        estados_aceptacion = [2]
+        estados_aceptacion = [3]
 
         for char in lexema:
             if estado == 0:
@@ -334,15 +334,21 @@ class Lexico():
             elif estado == 1:
 
                 if char not in self.saltoLinea and char not in self.char:
-                    estado = 1
-                    
-                elif char in self.char:
                     estado = 2
 
                 else:
                     estado = -1
             
             elif estado == 2:
+
+                if char in self.char:
+                    estado = 3
+
+                else:
+                    estado = -1
+            
+            
+            elif estado == 3:
                 estado = -1
 
 
@@ -529,7 +535,7 @@ class Lexico():
                     anterior_reconocido = False
 
                     while indice_adelante <= len(codigo):
-                        lexema = codigo[indice: indice_adelante] # -> #\n$
+                        lexema = codigo[indice: indice_adelante] # -> #\n$ 
                         reconocido = patron(lexema)
 
                         if not reconocido and anterior_reconocido:
@@ -547,8 +553,10 @@ class Lexico():
                             _lexema = Lexema(
                                 lexema, descripcion['description'], fila, columna, descripcion['patron'])
                             _token = Token(token, _lexema)
-                            self.list_tokens.append(_token)
+                            _estadosTabla = Estados()
+                            _dictEstados = _estadosTabla.arbol(token, lexema)
                             self.list_estados.append(_dictEstados)
+                            self.list_tokens.append(_token)
                             print(f"RECONOCIDO: '{lexema}' | {token} - AFD")
                             indice = indice_adelante - 1
                         else:
