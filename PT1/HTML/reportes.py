@@ -87,7 +87,6 @@ class HTML():
             <br>
             <br>"""
 
-
         if lista['estados']:
             body = body + f"""
             <h2 class="heading-section">Tablas de Estados</h2>
@@ -95,7 +94,7 @@ class HTML():
             estados = lista['estados']
             for elemento in estados:
                 body = body + f"""
-            <h2 class="heading-section">Lexema: {elemento.nombre}. Token: {elemento.lexema}</h2>
+            <h2 class="heading-section">Lexema: {elemento.lexema} Token:{elemento.nombre} </h2>
             <div class = "row" >
                 <div class = "col-md-12" > 
                     <div class = "table-wrap" >
@@ -129,7 +128,7 @@ class HTML():
                     </div>
                 </div>
             </div>"""
-            
+
                 body = body + f"""
             <br>
             <br>"""
