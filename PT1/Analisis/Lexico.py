@@ -77,7 +77,7 @@ class Lexico():
         self.diagonal = ["/"]
         self.vacio = []
         self.saltoLinea = ["\n"]
-        self.omite = ["*", "/"]
+        self.omite = ["*"]
         self.string = ["\""]
         self.char = ["'"]
         self.IGNORAR = " \n\t"
@@ -290,9 +290,6 @@ class Lexico():
 
                 elif char in self.asterisco:
                     estado = 3
-                
-                elif char == '\n':
-                    estado = 3
 
                 else:
                     estado = -1
@@ -302,7 +299,7 @@ class Lexico():
                 if char in self.asterisco:
                     estado = 3
                 
-                elif char not in self.omite:
+                elif char not in self.omite and char != '/':
                     estado = 2
                 
                 elif char in self.diagonal:

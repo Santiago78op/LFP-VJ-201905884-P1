@@ -1,5 +1,5 @@
  // hola
- /*hola*/
+ /*ho/la*/
  // adios
- /*s*/
+ /*s/*/
  
